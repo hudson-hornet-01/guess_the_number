@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Guess the Number Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 5px 10px;
+      font-size: 16px;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Guess the Number Game</h1>
+  <p>Guess a number between 1 and 100:</p>
+  <input type="text" id="guessField">
+  <button onclick="checkGuess()">Submit Guess</button>
+  <p id="message"></p>
+  <script>
+    // Generate a random number between 1 and 100
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    // Track number of attempts
+    let attempts = 0;
+
+    function checkGuess() {
+      // Get the user's guess from the input field
+      const guess = parseInt(document.getElementById('guessField').value);
+
+      // Increment attempts
+      attempts++;
+
+      // Display message based on the guess
+      if (guess === randomNumber) {
+        document.getElementById('message').innerHTML = `Congratulations! You guessed the number in ${attempts} attempts.`;
+      } else if (guess < randomNumber) {
+        showMessage('Try a higher number.');
+      } else {
+        showMessage('Try a lower number.');
+      }
+    }
+
+    function showMessage(message) {
+      const messageElement = document.getElementById('message');
+      messageElement.innerHTML = message;
+      messageElement.style.animation = 'blink 1s';
+
+      // Remove animation after 1 second
+      setTimeout(() => {
+        messageElement.style.animation = 'none';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
